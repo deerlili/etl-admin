@@ -1,29 +1,21 @@
 <template>
-  <div class="login-container" :style="{backgroundImage:'url('+require('../../assets/common/back.jpg')+')'}">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on" label-position="left">
-
+  <div class="login-container">
+    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
       <h1 class="loginTitle">数据抽取平台</h1>
       <p class="loginSystem">ETL-ADMIN</p>
-
       <el-form-item prop="username">
-        <span class="svg-container">
-          <svg-icon icon-class="user" />
-        </span>
         <el-input
           ref="username"
           v-model="loginForm.username"
-          placeholder="用户名"
+          placeholder="账号"
           name="username"
           type="text"
           tabindex="1"
           autocomplete="on"
-        />
+        ><svg-icon slot="prefix" icon-class="peoples" />
+        </el-input>
       </el-form-item>
-
       <el-form-item prop="password">
-        <span class="svg-container">
-          <svg-icon icon-class="password" />
-        </span>
         <el-input
           :key="passwordType"
           ref="password"
@@ -35,7 +27,7 @@
           autocomplete="on"
           @keyup.native="checkCapslock"
           @keyup.enter.native="handleLogin"
-        />
+        ><svg-icon slot="prefix" icon-class="password"/></el-input>
         <span class="show-pwd" @click="showPwd">
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
@@ -58,13 +50,11 @@
         <el-button class="loginButton" style="width:100%;" type="primary" :disabled="submitDisabled" @click.native.prevent="handleLogin">登录</el-button>
       </el-form-item>
     </el-form>
-    <a href="http://www.freepik.com">Designed by fullvector / Freepik</a>
     <div style="position: absolute;bottom: 0;width: 100%;background: rgba(204, 204, 204, 0.3);height: 35px;">
-      <p style="text-align: center;line-height: 5px;">版权所有©重庆半山智能科技有限公司   2019-2022 技术支持电话:17629371303</p>
+      <p style="text-align: center;line-height: 5px;margin-top: 15px">版权所有©重庆半山智能科技有限公司 2019-2022 技术支持电话:17629371303 (<a href="http://www.freepik.com">Designed by fullvector/Freepik</a>)</p>
     </div>
   </div>
 </template>
-
 <script>
 
 export default {
@@ -72,7 +62,7 @@ export default {
   data() {
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+        callback(new Error('请输入您的密码(密码不能少于6位)'))
       } else {
         callback()
       }
@@ -175,47 +165,15 @@ export default {
 }
 </script>
 
-<style lang="scss">
-$bg:#283443;
-$light_gray:#fff;
-$cursor: #fff;
-
-@supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
-  .login-container .el-input input {
-    color: $cursor;
-  }
-}
-
-/* reset element-ui css */
+<style lang="scss" rel="stylesheet/scss">
 .login-container {
-  .el-input {
-    display: inline-block;
-    height: 47px;
-    width: 85%;
-
-    input {
-      background: transparent;
-      border: 0px;
-      -webkit-appearance: none;
-      border-radius: 0px;
-      padding: 12px 5px 12px 15px;
-      color: $light_gray;
-      height: 47px;
-      caret-color: $cursor;
-
-      &:-webkit-autofill {
-        box-shadow: 0 0 0px 1000px $bg inset !important;
-        -webkit-text-fill-color: $cursor !important;
-      }
-    }
-  }
-
-  .el-form-item {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    color: #454545;
-  }
+  background-size: cover;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: right;
+  align-items: center;
+  background-image: url("../../assets/common/back.jpg");
 }
 </style>
 
@@ -227,28 +185,36 @@ $light_gray:#eee;
 .login-container {
   min-height: 100%;
   width: 100%;
-  background-color: $bg;
+  text-align: center;
   overflow: hidden;
-
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  .loginTitle {
+    margin-bottom: 10px;
+    font-weight: 400;
+    font-size: 25px;
+    color: #2F3FB0;
+  }
+  .loginSystem {
+    font-weight: 300;
+    font-size: 20px;
+    color: rgb(63, 160, 144);
+  }
   .login-form {
-    position: relative;
-    width: 520px;
-    max-width: 100%;
-    padding: 160px 35px 0;
-    margin: 0 auto;
-    overflow: hidden;
-    text-align: center;
-    .loginTitle {
-      margin-bottom: 10px;
-      font-weight: 300;
-      font-size: 25px;
-      color: #a4d6f3;
+    border-radius: 6px;
+    margin-right: 9%;
+    margin-top: 6%;
+    background: #ffffff;
+    width: 450px;
+    padding: 25px 25px 5px 25px;
+    .el-input {
+      height: 38px;
+      input {
+        height: 38px;
+      }
     }
-    .loginSystem {
-      font-weight: 300;
-      font-size: 20px;
-      color: rgb(63, 160, 144);
-    }
+
   }
 
   .tips {
